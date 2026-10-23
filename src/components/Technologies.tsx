@@ -28,7 +28,7 @@ const Technologies = () => {
     { src: nodeIcon, alt: "Node.js" },
     { src: jsIcon, alt: "JavaScript" },
     { src: tsIcon, alt: "TypeScript" },
-    { src: vscodeIcon, alt: "Visual Studion Code"},
+    { src: vscodeIcon, alt: "Visual Studio Code" },
     { src: cBuilder, alt: "C++ Builder" },
     { src: delphi, alt: "Delphi" },
     { src: reactIcon, alt: "React" },
@@ -51,41 +51,59 @@ const Technologies = () => {
   ];
 
   return (
-    <div className="flex flex-col items-center mt-10 mb-20 bg-[rgba(240,235,235,0.21)] m-6 rounded-2xl p-6">
-      <h2 className="text-neutral-300 text-lg mb-6 mt-2 border-b border-r rounded-md px-2 py-2">TECH STACK & TOOLS</h2>
+    <section className="bg-white/80 dark:bg-[#111827]/80 backdrop-blur-sm border border-slate-200 dark:border-slate-800 rounded-2xl p-6 sm:p-8 shadow-sm transition-colors duration-200">
+      <h2 className="text-2xl sm:text-3xl font-semibold tracking-tight text-slate-900 dark:text-slate-100 text-center mb-8">
+        Tech Stack & Tools
+      </h2>
 
-      <h5 className="text-neutral-300 text-lg mb-6">Development:</h5>
-      <div className="flex flex-wrap justify-center gap-6">
-        {devIcons.map((icon, index) => (
-          <div key={index}>
-            <img
-              src={icon.src}
-              alt={icon.alt}
+      {/* Development Category */}
+      <div className="mb-10">
+        <h3 className="text-xs font-semibold uppercase tracking-wider text-blue-600 dark:text-blue-400 text-center mb-5">
+          Development & Systems
+        </h3>
+        <div className="flex flex-wrap justify-center gap-4">
+          {devIcons.map((icon, index) => (
+            <div
+              key={index}
               data-tooltip-id={`tooltip-dev-${index}`}
               data-tooltip-content={icon.alt}
-              className="h-8 w-8 cursor-pointer"
-            />
-            <Tooltip id={`tooltip-dev-${index}`} place="top" className="text-sm px-2 py-1" />
-          </div>
-        ))}
+              className="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-700/60 hover:border-blue-500/50 dark:hover:border-blue-400/50 hover:scale-105 transition-all duration-200 flex items-center justify-center cursor-pointer shadow-xs"
+            >
+              <img
+                src={icon.src}
+                alt={icon.alt}
+                className="h-8 w-8 object-contain"
+              />
+              <Tooltip id={`tooltip-dev-${index}`} place="top" className="text-xs px-2 py-1 z-30" />
+            </div>
+          ))}
+        </div>
       </div>
 
-      <h5 className="text-neutral-300 text-lg mt-10 mb-6">Design & Creative</h5>
-      <div className="flex flex-wrap justify-center gap-6 mb-2">
-        {designIcons.map((icon, index) => (
-          <div key={index}>
-            <img
-              src={icon.src}
-              alt={icon.alt}
+      {/* Design & Creative Category */}
+      <div>
+        <h3 className="text-xs font-semibold uppercase tracking-wider text-blue-600 dark:text-blue-400 text-center mb-5">
+          Design & Creative
+        </h3>
+        <div className="flex flex-wrap justify-center gap-4">
+          {designIcons.map((icon, index) => (
+            <div
+              key={index}
               data-tooltip-id={`tooltip-design-${index}`}
               data-tooltip-content={icon.alt}
-              className="h-8 w-8 cursor-pointer"
-            />
-            <Tooltip id={`tooltip-design-${index}`} place="top" className="text-sm px-2 py-1" />
-          </div>
-        ))}
+              className="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-700/60 hover:border-blue-500/50 dark:hover:border-blue-400/50 hover:scale-105 transition-all duration-200 flex items-center justify-center cursor-pointer shadow-xs"
+            >
+              <img
+                src={icon.src}
+                alt={icon.alt}
+                className="h-8 w-8 object-contain"
+              />
+              <Tooltip id={`tooltip-design-${index}`} place="top" className="text-xs px-2 py-1 z-30" />
+            </div>
+          ))}
+        </div>
       </div>
-    </div>
+    </section>
   );
 };
 

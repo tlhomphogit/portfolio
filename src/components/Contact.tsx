@@ -1,39 +1,123 @@
-// src/components/Contact.tsx
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import emailjs from "@emailjs/browser";
-import { Send } from 'lucide-react';
+import { ArrowRight, Send, MessageSquare } from "lucide-react";
 
 const Contact = () => {
   const form = useRef<HTMLFormElement>(null);
+  const [showDirectForm, setShowDirectForm] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const sendEmail = (e: React.FormEvent) => {
     e.preventDefault();
     if (!form.current) return;
 
-    emailjs.sendForm(
-      import.meta.env.VITE_EMAILJS_SERVICE_ID,
-      import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
-      form.current,
-      import.meta.env.VITE_EMAILJS_PUBLIC_KEY
-    ).then(
-      () => {
-        alert("Message sent successfully!");
-      },
-      (error) => {
-        alert("Failed to send message: " + error.text);
-      }
-    );
+    setIsSubmitting(true);
+    emailjs
+      .sendForm(
+        import.meta.env.VITE_EMAILJS_SERVICE_ID,
+        import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+        form.current,
+        import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+      )
+      .then(
+        () => {
+          setIsSubmitting(false);
+          alert("Message sent successfully!");
+          form.current?.reset();
+        },
+        (error) => {
+          setIsSubmitting(false);
+          alert("Failed to send message: " + error.text);
+        }
+      );
   };
 
   return (
-    <section id="contact" className="text-neutral-300 px-6 py-10 rounded-2xl bg-gradient-to-r from-gray-800 to-neutral-800">
-      <h2 className="text-2xl font-bold mb-4 border-b border-r rounded-md px-2 py-2">Contact</h2>
-      <form ref={form} onSubmit={sendEmail} className="max-w-xl text-white mx-auto space-y-4">
-        <input type="text" name="name" placeholder="Your Name" className="border-1 border-white w-full p-2 rounded" required />
-        <input type="email" name="email" placeholder="Your Email" className="border-1 border-white w-full p-2 rounded" required />
-        <textarea name="message" rows={5} placeholder="Your Message" className="border-1 border-white w-full p-2 rounded" required></textarea>
-        <button type="submit" className="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 inline-flex gap-2 items-center"><Send size={18}/>Send</button>
-      </form>
+    <section className="cta-section" id="contact">
+      <div className="cta-panel">
+        <p className="section-topper">Have something in mind?</p>
+        <h2>
+          Let&apos;s build something <span className="shine">worth using.</span>
+        </h2>
+        <p>Open to discussing freelance software development opportunities.</p>
+
+        <div className="flex flex-wrap items-center justify-center gap-3">
+          <a className="main-action" href="mailto:tlhomphosuper@gmail.com">
+            <span>Send an email</span>
+            <ArrowRight size={15} />
+          </a>
+
+          <button
+            type="button"
+            className="text-action cursor-pointer"
+            onClick={() => setShowDirectForm(!showDirectForm)}
+            aria-expanded={showDirectForm}
+          >
+            <MessageSquare size={15} />
+            <span>{showDirectForm ? "Hide message form" : "Or message via form"}</span>
+          </button>
+        </div>
+
+        {/* Unobtrusive Direct Form */}
+        {showDirectForm && (
+          <div className="form-card mt-6">
+            <form ref={form} onSubmit={sendEmail} className="space-y-3">
+              <div>
+                <label htmlFor="contact-name" className="sr-only">
+                  Your Name
+                </label>
+                <input
+                  id="contact-name"
+                  type="text"
+                  name="name"
+                  placeholder="Your Name"
+                  className="form-input"
+                  required
+                />
+              </div>
+
+              <div>
+                <label htmlFor="contact-email" className="sr-only">
+                  Your Email
+                </label>
+                <input
+                  id="contact-email"
+                  type="email"
+                  name="email"
+                  placeholder="Your Email"
+                  className="form-input"
+                  required
+                />
+              </div>
+
+              <div>
+                <label htmlFor="contact-message" className="sr-only">
+                  Your Message
+                </label>
+                <textarea
+                  id="contact-message"
+                  name="message"
+                  rows={4}
+                  placeholder="Your Message"
+                  className="form-input resize-y"
+                  required
+                ></textarea>
+              </div>
+
+              <div className="text-right pt-2">
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="pill-button cursor-pointer disabled:opacity-50"
+                >
+                  <Send size={13} />
+                  <span>{isSubmitting ? "Sending..." : "Submit message"}</span>
+                </button>
+              </div>
+            </form>
+          </div>
+        )}
+      </div>
     </section>
   );
 };

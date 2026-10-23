@@ -1,28 +1,24 @@
-import Navbar from './components/Navbar'
-import SocialBar from './components/SocialBar'
-import Hero from './components/Hero'
-import './App.css'
-import Technologies from './components/Technologies'
-import About from './components/About'
-import Contact from './components/Contact'
-import Projects from './components/Projects'
-import Footer from './components/Footer'
+import Navbar from "./components/Navbar";
+import Hero from "./components/Hero";
+import PortfolioOverview from "./components/PortfolioOverview";
+import Projects from "./components/Projects";
+import Contact from "./components/Contact";
+import Footer from "./components/Footer";
+import "./App.css";
 
 function App() {
-    return (
-        <>
-        <Navbar />
-        <SocialBar/>
-         <div id="home" className="mx-auto pt-20 px-6">
+  return (
+    <div className="portfolio-app min-h-screen">
+      <Navbar />
+      <main>
         <Hero />
-        </div>
-        <Technologies/>
-        <About/>
-        <Projects/>
-        <Contact/>
-        <Footer />
-        </>
-    )
+        <PortfolioOverview />
+        <Projects />
+        <Contact />
+      </main>
+      <Footer />
+    </div>
+  );
 }
 
-export default App
+export default App;

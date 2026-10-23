@@ -1,55 +1,52 @@
 // src/components/SocialBar.tsx
 import { Tooltip } from 'react-tooltip';
-import { Star } from 'lucide-react';
-import githubIcon from '../assets/icons/github-dark.svg';
-import linkedinIcon from '../assets/icons/linkedin.svg';
-import facebookIcon from '../assets/icons/facebookC.svg';
-import instagramIcon from '../assets/icons/instagramC.svg';
+import { Github, Linkedin, Facebook, Instagram } from 'lucide-react';
 
 const SocialBar = () => {
-
   const socials = [
     {
-      href: "https://github.com/tlhomphogit",icon: githubIcon,label: "GitHub",},
+      href: "https://github.com/tlhomphogit",
+      icon: Github,
+      label: "GitHub",
+    },
     {
-      href: "https://linkedin.com/in/tlhompho-ratlhogo-/",icon: linkedinIcon,label: "LinkedIn",},
+      href: "https://linkedin.com/in/tlhompho-ratlhogo-/",
+      icon: Linkedin,
+      label: "LinkedIn",
+    },
     {
-      href: "https://facebook.com/tlhompho.success",icon: facebookIcon,label: "Facebook",},
+      href: "https://facebook.com/tlhompho.success",
+      icon: Facebook,
+      label: "Facebook",
+    },
     {
-      href: "https://instagram.com/superdareallest",icon: instagramIcon,label: "Instagram",},
-    ];
+      href: "https://instagram.com/superdareallest",
+      icon: Instagram,
+      label: "Instagram",
+    },
+  ];
 
   return (
-    <div className="hidden md:flex fixed top-15 left-0 h-screen w-12 rounded-md bg-gray-700 flex-col items-center justify-between py-6 z-50">
-      {/* Top icons */}
-      <div className="flex flex-col items-center space-y-4 mt-">
-        {socials.map(({ href, icon, label }, index) => (
-          <a
-            key={index}
-            href={href}
-            target="_blank"
-            rel="noopener noreferrer"
-            data-tooltip-id={`tooltip-${index}`}
-            data-tooltip-content={label}
-          >
-            <img
-              src={icon}
-              alt={label}
-              className="w-6 invert transition-transform hover:scale-120"
-            />
-            <Tooltip id={`tooltip-${index}`} place="right" className="text-sm px-2 py-1" />
-          </a>
-        ))}
-      </div>
-
-      {/* Bottom Star icon */}
-      <div className="flex mb-12" data-tooltip-id="tooltip-rate" data-tooltip-content="Rate Me">
-        <a href="#rate">
-            <Star className=" flex w-5 h-5 text-white transition-transform hover:scale-120" />
+    <aside
+      aria-label="Social media profiles"
+      className="hidden md:flex fixed left-4 top-1/2 -translate-y-1/2 flex-col items-center gap-3 p-2.5 bg-white/80 dark:bg-[#111827]/80 backdrop-blur-md border border-slate-200 dark:border-slate-800 rounded-2xl shadow-md z-40 transition-colors duration-200"
+    >
+      {socials.map(({ href, icon: Icon, label }, index) => (
+        <a
+          key={index}
+          href={href}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={label}
+          data-tooltip-id={`tooltip-social-${index}`}
+          data-tooltip-content={label}
+          className="p-2 rounded-xl text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500/40"
+        >
+          <Icon className="w-5 h-5 transition-transform hover:scale-110" />
+          <Tooltip id={`tooltip-social-${index}`} place="right" className="text-xs px-2 py-1 z-50" />
         </a>
-        <Tooltip id="tooltip-rate" place="right" className="text-sm px-2 py-1" />
-      </div>
-    </div>
+      ))}
+    </aside>
   );
 };
 

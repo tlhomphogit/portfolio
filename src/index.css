@@ -1,21 +1,112 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap');
 
 :root {
-  font-family: 'Poppins', sans-serif;
-  color-scheme: light dark;
-
-  /* Background image settings */
-  background-image: url('./assets/icons/computer.png');
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-attachment: fixed; /* <== this makes the background fixed! */
-
-  min-height: 100vh;
+  font-family: 'Poppins', system-ui, sans-serif;
+  font-synthesis: none;
+  scroll-behavior: smooth;
+  --bg: #fafafa;
+  --hero-bg: #f2f2f3;
+  --surface: #ffffff;
+  --surface-alt: #fafafa;
+  --text: #111113;
+  --secondary: #5e6068;
+  --muted: #85868d;
+  --line: #e6e6e8;
+  --ring: #d5d5d9;
+  --nav: rgba(247, 247, 248, 0.88);
+  --button: #101012;
+  --button-text: #ffffff;
+  --highlight: #8d48d3;
+  --highlight-soft: rgba(184, 94, 240, 0.23);
+  --shadow: 0 18px 40px -22px rgba(29, 27, 37, 0.23);
+  --card-shadow: 0 10px 35px -25px rgba(20, 22, 32, 0.18);
 }
 
-/* index.css */
-html {
-  scroll-behavior: smooth;
+:root[data-theme="dark"],
+.dark {
+  color-scheme: dark;
+  --bg: #0a1020;
+  --hero-bg: #0b1223;
+  --surface: #141d30;
+  --surface-alt: #111a2b;
+  --text: #f6f7fc;
+  --secondary: #b3bdce;
+  --muted: #92a0b7;
+  --line: #2b354b;
+  --ring: #46516b;
+  --nav: rgba(12, 20, 35, 0.9);
+  --button: #f6f7fb;
+  --button-text: #0a1020;
+  --highlight: #c3a1ff;
+  --highlight-soft: rgba(153, 91, 255, 0.26);
+  --shadow: 0 18px 50px -16px rgba(0, 0, 0, 0.5);
+  --card-shadow: 0 10px 35px -18px rgba(0, 0, 0, 0.32);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Poppins', system-ui, sans-serif;
+  font-weight: 300;
+  min-width: 320px;
+  transition: background 0.25s, color 0.25s;
+}
+
+button,
+a {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button:focus-visible,
+a:focus-visible {
+  outline: 3px solid #9472e8;
+  outline-offset: 4px;
+}
+
+h1,
+h2,
+h3,
+h4,
+p {
+  margin-top: 0;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-weight: 600;
+}
+
+p {
+  font-weight: 300;
+}
+
+section[id] {
+  scroll-margin-top: 105px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
