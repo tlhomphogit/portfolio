@@ -4,9 +4,26 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/png" href="/portfolio/profile.png" /> 
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Tlhompho Portfolio</title>
-    <script type="module" crossorigin src="/portfolio/assets/index-D5k-u2wQ.js"></script>
-    <link rel="stylesheet" crossorigin href="/portfolio/assets/index-CiF4uDDt.css">
+    <meta name="color-scheme" content="light dark" />
+    <title>Tlhompho Ratlhogo — Software Engineer</title>
+    <script>
+      (function () {
+        try {
+          const stored = localStorage.getItem('theme') || localStorage.getItem('tlhompho-concept-theme');
+          if (stored === 'dark') {
+            document.documentElement.setAttribute('data-theme', 'dark');
+            document.documentElement.classList.add('dark');
+          } else {
+            document.documentElement.setAttribute('data-theme', 'light');
+            document.documentElement.classList.remove('dark');
+          }
+        } catch (_) {
+          document.documentElement.setAttribute('data-theme', 'light');
+        }
+      })();
+    </script>
+    <script type="module" crossorigin src="/portfolio/assets/index-i3nSuTc1.js"></script>
+    <link rel="stylesheet" crossorigin href="/portfolio/assets/index-DzVGXdH5.css">
   </head>
   <body>
     <div id="root"></div>
