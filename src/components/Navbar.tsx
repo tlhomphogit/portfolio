@@ -9,7 +9,7 @@ const Navbar = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      const sections = ["home", "overview", "projects", "contact"];
+      const sections = ["home", "overview", "services", "projects", "contact"];
       const scrollY = window.scrollY;
 
       for (const sectionId of sections) {
@@ -32,6 +32,7 @@ const Navbar = () => {
   const navItems = [
     { name: "Home", href: "#home", id: "home" },
     { name: "About", href: "#overview", id: "overview" },
+    { name: "Services", href: "#services", id: "services" },
     { name: "Projects", href: "#projects", id: "projects" },
     { name: "Contact", href: "#contact", id: "contact" },
   ];
@@ -75,12 +76,12 @@ const Navbar = () => {
           >
             {theme === "dark" ? (
               <>
-                <Sun size={16} />
+                <Sun size={15} />
                 <span id="themeText">Light mode</span>
               </>
             ) : (
               <>
-                <Moon size={16} />
+                <Moon size={15} />
                 <span id="themeText">Dark mode</span>
               </>
             )}

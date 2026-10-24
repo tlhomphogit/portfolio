@@ -1,6 +1,7 @@
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import PortfolioOverview from "./components/PortfolioOverview";
+import Services from "./components/Services";
 import Projects from "./components/Projects";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
@@ -13,6 +14,7 @@ function App() {
       <main>
         <Hero />
         <PortfolioOverview />
+        <Services />
         <Projects />
         <Contact />
       </main>

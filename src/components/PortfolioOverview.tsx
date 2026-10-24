@@ -1,5 +1,4 @@
 import { ArrowRight, Code, Github, Linkedin, Mail } from "lucide-react";
-import profilePic from "../assets/icons/profile.png";
 
 const PortfolioOverview = () => {
   return (
@@ -7,16 +6,13 @@ const PortfolioOverview = () => {
       <div className="portfolio-shell">
         <div className="identity-row">
           <div className="identity-left">
-            <div className="avatar">
-              <img src={profilePic} alt="Tlhompho Ratlhogo profile avatar" />
-            </div>
             <div>
               <h2 className="person-name">Tlhompho Ratlhogo</h2>
               <p className="person-role">Software Engineer · South Africa</p>
             </div>
           </div>
           <span className="state-pill">
-            <span className="live-dot"></span> Open to projects
+            Open to projects
           </span>
         </div>
 
@@ -118,10 +114,10 @@ const PortfolioOverview = () => {
             </div>
             <div>
               <div className="rate-number">
-                $18 <small>/ hour · starting</small>
+                R330 <small>/ hour · starting</small>
               </div>
               <p className="soft-copy">
-                Flexible scheduling. Remote, hybrid, or on-site — depending on the project.
+                Starting at R330/hour. Flexible scheduling (remote, hybrid, or on-site) depending on project scope.
               </p>
             </div>
             <div className="card-footer">
