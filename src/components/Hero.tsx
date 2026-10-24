@@ -9,7 +9,7 @@ const Hero = () => {
         </div>
 
         <h1>
-          Turning ideas into <span className="shine">useful software.</span>
+          Turning Complex Problems into Practical <span className="shine">Software Solutions.</span>
         </h1>
 
         <p className="hero-sub">
