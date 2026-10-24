@@ -8,7 +8,7 @@ const PortfolioOverview = () => {
           <div className="identity-left">
             <div>
               <h2 className="person-name">Tlhompho Ratlhogo</h2>
-              <p className="person-role">Software Engineer · South Africa</p>
+              <p className="person-role">Software Engineer · Daveyton, South Africa</p>
             </div>
           </div>
           <span className="state-pill">
@@ -82,7 +82,7 @@ const PortfolioOverview = () => {
                 <Mail size={18} />
               </a>
               <a
-                href="https://linkedin.com/in/tlhompho-ratlhogo-/"
+                href="https://linkedin.com/in/tlhompho-ratlhogo/"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="LinkedIn Profile"

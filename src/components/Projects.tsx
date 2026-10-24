@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Code, Database, Shield, ArrowRight, ExternalLink } from "lucide-react";
+import { ExternalLink } from "lucide-react";
 
 type ProjectKey = "portfolio" | "college" | "digiguard";
 
@@ -10,7 +10,7 @@ interface CodeToken {
 
 interface ProjectData {
   key: ProjectKey;
-  number: string;
+  category: string;
   stepTitle: string;
   stepSub: string;
   tag: string;
@@ -25,7 +25,7 @@ interface ProjectData {
 const projectsData: Record<ProjectKey, ProjectData> = {
   portfolio: {
     key: "portfolio",
-    number: "01",
+    category: "FRONTEND",
     stepTitle: "Portfolio website",
     stepSub: "React · TypeScript · Vite",
     tag: "Portfolio website",
@@ -50,7 +50,7 @@ const projectsData: Record<ProjectKey, ProjectData> = {
   },
   college: {
     key: "college",
-    number: "02",
+    category: "BACKEND",
     stepTitle: "College Management API",
     stepSub: "Node.js · Express · MongoDB",
     tag: "Backend / REST API",
@@ -75,7 +75,7 @@ const projectsData: Record<ProjectKey, ProjectData> = {
   },
   digiguard: {
     key: "digiguard",
-    number: "03",
+    category: "SECURITY",
     stepTitle: "DigiGuard",
     stepSub: "FastAPI · Spring Boot · React",
     tag: "Security / Full stack",
@@ -103,42 +103,54 @@ const TypingCodeDisplay = ({ tokens }: { tokens: CodeToken[] }) => {
   const [charIndex, setCharIndex] = useState(totalLength);
 
   useEffect(() => {
-    // Check if user prefers reduced motion
-    const prefersReducedMotion =
-      typeof window !== "undefined" &&
-      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
 
     if (prefersReducedMotion) {
       setCharIndex(totalLength);
       return;
     }
 
-    setCharIndex(0);
     let timeoutId: number;
-    let intervalId: number;
+    let cancelled = false;
+    let currentChar = 0;
+    let completedLoops = 0;
 
-    const startTyping = () => {
-      intervalId = window.setInterval(() => {
-        setCharIndex((prev) => {
-          if (prev >= totalLength) {
-            clearInterval(intervalId);
-            // Clean loop pause: pause for 4.5 seconds, then restart typing cleanly
-            timeoutId = window.setTimeout(() => {
-              setCharIndex(0);
-              startTyping();
-            }, 4500);
-            return totalLength;
-          }
-          return prev + 1;
-        });
-      }, 100);
+    const typingSpeed = 100;
+    const pauseBetweenLoops = 4500;
+    const maxLoops = 2;
+
+    setCharIndex(0);
+
+    const typeNextCharacter = () => {
+      if (cancelled) return;
+
+      currentChar += 1;
+      setCharIndex(currentChar);
+
+      if (currentChar < totalLength) {
+        timeoutId = window.setTimeout(typeNextCharacter, typingSpeed);
+        return;
+      }
+
+      completedLoops += 1;
+
+      if (completedLoops < maxLoops) {
+        timeoutId = window.setTimeout(() => {
+          if (cancelled) return;
+          currentChar = 0;
+          setCharIndex(0);
+          timeoutId = window.setTimeout(typeNextCharacter, typingSpeed);
+        }, pauseBetweenLoops);
+      }
     };
 
-    startTyping();
+    timeoutId = window.setTimeout(typeNextCharacter, typingSpeed);
 
     return () => {
-      clearInterval(intervalId);
-      clearTimeout(timeoutId);
+      cancelled = true;
+      window.clearTimeout(timeoutId);
     };
   }, [tokens, totalLength]);
 
@@ -165,7 +177,7 @@ const TypingCodeDisplay = ({ tokens }: { tokens: CodeToken[] }) => {
   }
 
   return (
-    <div className="focus-code">
+    <div className="focus-code" aria-hidden="true">
       {renderedElements}
       <span className="typing-cursor" aria-hidden="true">
         |
@@ -181,72 +193,53 @@ const Projects = () => {
   return (
     <section className="section-container projects-section" id="projects">
       <p className="section-topper">Selected work</p>
-      <h2 className="section-title">Three projects, one journey.</h2>
+      <h2 className="section-title">Projects built with purpose.</h2>
       <p className="section-desc">
         Explore selected projects showcasing my experience in frontend development, backend systems, and software security.
       </p>
       <div className="title-underline"></div>
 
-      {/* 3-Step Journey Navigation */}
-      <div className="project-journey" role="group" aria-label="Choose a featured project">
-        {/* Step 1: Portfolio */}
-        <button
-          className="project-node"
-          type="button"
-          aria-pressed={selectedKey === "portfolio"}
-          onClick={() => setSelectedKey("portfolio")}
-        >
-          <span className="project-icon">
-            <Code size={27} />
-            <span className="project-counter">01</span>
-          </span>
-          <strong>Portfolio website</strong>
-          <small>React · TypeScript · Vite</small>
-        </button>
+      {/* Minimal editorial gallery — no icons or numbers */}
+      <div
+        className="project-gallery"
+        role="group"
+        aria-label="Choose a featured project"
+      >
+        {(["portfolio", "college", "digiguard"] as const).map((key) => {
+          const project = projectsData[key];
+          const selected = selectedKey === key;
 
-        {/* Arrow 1 */}
-        <span className="project-arrow" aria-hidden="true">
-          <ArrowRight size={20} />
-        </span>
-
-        {/* Step 2: College Management */}
-        <button
-          className="project-node"
-          type="button"
-          aria-pressed={selectedKey === "college"}
-          onClick={() => setSelectedKey("college")}
-        >
-          <span className="project-icon">
-            <Database size={27} />
-            <span className="project-counter">02</span>
-          </span>
-          <strong>College Management API</strong>
-          <small>Node.js · Express · MongoDB</small>
-        </button>
-
-        {/* Arrow 2 */}
-        <span className="project-arrow" aria-hidden="true">
-          <ArrowRight size={20} />
-        </span>
-
-        {/* Step 3: DigiGuard */}
-        <button
-          className="project-node"
-          type="button"
-          aria-pressed={selectedKey === "digiguard"}
-          onClick={() => setSelectedKey("digiguard")}
-        >
-          <span className="project-icon">
-            <Shield size={27} />
-            <span className="project-counter">03</span>
-          </span>
-          <strong>DigiGuard</strong>
-          <small>FastAPI · Spring Boot · React</small>
-        </button>
+          return (
+            <button
+              key={key}
+              type="button"
+              className="project-gallery-card"
+              aria-pressed={selected}
+              onClick={() => setSelectedKey(key)}
+            >
+              <span className="project-gallery-top">
+                <span className="project-gallery-category">
+                  {project.category}
+                </span>
+                <span className="project-gallery-selection">
+                  {selected ? "SELECTED" : "VIEW PROJECT"}
+                </span>
+              </span>
+              <span className="project-gallery-bottom">
+                <span className="project-gallery-title">
+                  {project.stepTitle}
+                </span>
+                <span className="project-gallery-stack">
+                  {project.stepSub}
+                </span>
+              </span>
+            </button>
+          );
+        })}
       </div>
 
       {/* Featured Project Focus Panel (Straight IDE Card + Typing Animation) */}
-      <article className="project-focus" id="projectDetail" aria-live="polite">
+      <article className="project-focus" id="projectDetail">
         <div className="focus-visual">
           <div className="focus-browser">
             <div className="window-dots">
@@ -260,7 +253,7 @@ const Projects = () => {
 
         <div className="focus-content">
           <p className="focus-tag">
-            Featured project / {currentProject.number} · {currentProject.tag}
+            Featured project · {currentProject.tag}
           </p>
           <h3>{currentProject.title}</h3>
           <p>{currentProject.description}</p>
